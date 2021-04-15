@@ -2,20 +2,7 @@ const nombre = document.getElementById("Nombre");
 const email = document.getElementById("Email");
 const materia = document.getElementById("Materia");
 const boton = document.getElementById("Mesa")
-const resultado = document.getElementsById('.Resultado')
-
-boton.addEventListener("click",(e)=>){
-	e.preventDefault();
-	let error = validarCampos();
-	if(error){
-		Resultado.innerHTML = error[1];
-		Resultado.classList.add("red")
-	} else {
-		Resultado.innerHTML = "Solicitud enviada correctamente";
-		Resultado.classList.add("green")
-	}
-}
-
+const resultado = document.querySelector("resultado")
 
 const validarCampos = ()=> {
 	let error = [];
@@ -27,7 +14,31 @@ const validarCampos = ()=> {
 		error[0] = true;
 		error[1] = "El nombre no puede contener mas de 40 caracteres."
 		return error;
+	}else if (	Email.value.length < 5 ||
+	 			Email.value.length > 40 || 
+				Email.value.indexOf("@") == -1 ||
+				Email.value.indexOf(".") == -1 )  {
+		error[0]= true;
+		error[1]= "El mail es inaválido"
+		return error;
 	}
-	return [0] = false;
+
+
+
+
+	error [0] = false;
 	return error;
 }
+
+
+boton.addEventListener("click",(e)=>{
+	e.preventDefault();
+	let error = validarCampos();
+	if(error){
+		resultado.innerHTML = error[1];
+		resultado.classList.add("red")
+	} else {
+		resultado.innerHTML = "Solicitud enviada correctamente";
+		resultado.classList.add("green")
+	}
+})
